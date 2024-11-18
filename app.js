@@ -1,10 +1,23 @@
 const express = require("express");
+const body_parser = require('body-parser');
+
 const app = express();
 const port = process.env.PORT || 3001;
 
+app.use(body_parser.urlencoded({extended: true}));
+
 app.get("/", (req, res) => res.type('html').send(html));
 
-const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.post("/send_ip", (req, res) => {
+  const info = req.body;
+  console.log("got the ip below!:");
+  console.log(info)
+
+
+  res.sendStatus(200);
+})
+
+const server = app.listen(port, () => console.log(`RPI app listening on port ${port}!`));
 
 server.keepAliveTimeout = 120 * 1000;
 server.headersTimeout = 120 * 1000;
